@@ -82,7 +82,14 @@ if (docSnap.exists()) {
 }
 })
 
-
+app.post('/pconfigstatus',(req,res)=>{
+  const device = doc(db, "device", req.body.id);
+  updateDoc(device,{
+    configstatus:req.body.status
+  }).then(()=>{res.send("Device status is updated")}).catch((error)=>{
+    res.send("Some error occured: "+error);
+  })
+})
 
 app.post('/pupdate-hardware',async(req,res)=>{
     const device = doc(db, "device",req.body.id);
